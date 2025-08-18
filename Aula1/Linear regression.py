@@ -54,3 +54,29 @@ plt.ylabel("y")
 plt.title("Linear Regression Predictions")
 plt.show()
 
+# End of first part of the code
+
+# 2.a) Implement the least squares method to find the optimal parameters w and b
+
+def compute_cost(X, y, w, b):
+    """
+    Compute the cost function for linear regression.
+    
+    Parameters:
+    X : np.ndarray
+        Input features (m x n matrix).
+    y : np.ndarray
+        True labels (m x 1 vector).
+    w : float
+        Weights.
+    b : float
+        Bias term.
+        
+    Returns:
+    float
+        Cost value.
+    """
+    m = len(y)
+    predictions = linear_regression(X, w, b)
+    cost = (1 / (2 * m)) * np.sum((predictions - y) ** 2)
+    return cost

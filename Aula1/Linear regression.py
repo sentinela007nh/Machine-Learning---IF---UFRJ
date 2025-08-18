@@ -19,7 +19,7 @@ plt.scatter(x_train, y_train, color="blue", label="Data points")
 plt.xlabel("x")
 plt.ylabel("y")
 plt.title("Scatter plot of training data")
-# plt.legend()
+plt.show()
 
 # 1.b) Construa uma função que recebe um vetor numpy de preditores ("features"), os parâmetros "w" e "b" e produz um vetor de previsões "y".
 

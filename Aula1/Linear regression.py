@@ -21,17 +21,36 @@ plt.ylabel("y")
 plt.title("Scatter plot of training data")
 plt.show()
 
-# 1.b) Linear regression using the least squares method
-def fitLR(x, w, b):
-    
-    Fit a linear regression model using the least squares method.
+# 1.b) Linear regression algorithm implementation
+def linear_regression(X, w, b):
+    """
+    Calculate the predictions using the linear regression model.
     
     Parameters:
-    x (numpy.ndarray): Input features (shape: [m, n])
-    w (numpy.ndarray): Weights (shape: [n, 1])
-    b (float): Bias term
-    
+    X : np.ndarray
+        Input features (m x n matrix).
+    w : float
+        Weights.
+    b : float
+        Bias term.
+        
     Returns:
-    numpy.ndarray: Predicted values (shape: [m, 1])
-    
-    return np.dot(x, w) + b
+    np.array
+        Predictions (m x 1 vector).
+    """
+    y = X.dot(w) + b
+    return y
+
+w = float(input("Enter the weight (w): "))
+b = float(input("Enter the bias (b): "))
+
+y_pred = linear_regression(x_train, w, b)
+
+# Visualize the predictions
+plt.scatter(x_train, y_train, color="blue", label="Data points")
+plt.plot(x_train, y_pred, color="red", label="Linear regression line")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Linear Regression Predictions")
+plt.show()
+

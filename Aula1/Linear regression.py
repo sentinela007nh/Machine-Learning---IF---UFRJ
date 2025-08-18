@@ -1,4 +1,4 @@
-# We will calculate the linear regression of a dataset using the least squares method. #
+# We will calculate the linear regression of a dataset using the least squares method.
 
 
 import numpy as np
@@ -21,17 +21,17 @@ plt.ylabel("y")
 plt.title("Scatter plot of training data")
 plt.show()
 
-# 1.b) Construa uma função que recebe um vetor numpy de preditores ("features"), os parâmetros "w" e "b" e produz um vetor de previsões "y".
-
-# def f_wb(x, w, b):
-#    """
-#    Computes the prediction of a linear model
-#    Args:
-#      x (ndarray (m,)): input values, m examples
-#      w,b (scalar)    : model parameters
-#    Returns
-#      y (ndarray (m,)): target values
-#    """
-#    # INSIRA SEU CÓDIGO AQUI
-#    # ...
-#    return y
+# 1.b) Linear regression using the least squares method
+def fitLR(x, w, b):
+    
+    Fit a linear regression model using the least squares method.
+    
+    Parameters:
+    x (numpy.ndarray): Input features (shape: [m, n])
+    w (numpy.ndarray): Weights (shape: [n, 1])
+    b (float): Bias term
+    
+    Returns:
+    numpy.ndarray: Predicted values (shape: [m, 1])
+    
+    return np.dot(x, w) + b

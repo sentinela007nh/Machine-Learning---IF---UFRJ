@@ -56,7 +56,6 @@ plt.ylabel("y")
 plt.title("Linear Regression Predictions")
 plt.show()
 
-# End of first part of the code
 
 # 2.a) Implement the least squares method to find the optimal parameters w and b
 
@@ -161,3 +160,4 @@ plt.ylabel("y")
 plt.title("Linear Regression Fit after Gradient Descent")
 plt.show()
 
+# 3) 

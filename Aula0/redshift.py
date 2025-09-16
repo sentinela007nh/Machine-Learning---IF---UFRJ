@@ -1,12 +1,13 @@
 # Photo Analizer of Redshift #
 
 
+import time
 import os
 import glob
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import numpy
+import pandas
+import matplotlib.pyplot
+import seaborn
 import sklearn
 
 from sklearn.ensemble import RandomForestRegressor
@@ -16,7 +17,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
 
 # Load the first CSV file (assumes it contains the test data)
-data = pd.read_csv("./des_match_vvds_clean.csv")
+data = pandas.read_csv("./des_match_vvds_clean.csv")
 
 # The 'z' columns is the target and the 'mag_*' and 'mag_err_' columns are the predictor
 y = data["z"]
@@ -40,6 +41,8 @@ X = data[
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+print("The program will run three different regression models and compare their performance.")
+time.sleep(2)
 
 # 1. Multi-Layer Perceptron
 
@@ -48,7 +51,7 @@ mlp.fit(X_train, y_train)
 y_pred_mlp = mlp.predict(X_test)
 # Evaluate MLP performance
 mlp_mae = mean_absolute_error(y_test, y_pred_mlp)
-mlp_rmse = np.sqrt(mean_squared_error(y_test, y_pred_mlp))
+mlp_rmse = numpy.sqrt(mean_squared_error(y_test, y_pred_mlp))
 print(f"MLP MAE: {mlp_mae}, MLP RMSE: {mlp_rmse}")
 
 
@@ -58,7 +61,7 @@ rf.fit(X_train, y_train)
 y_pred_rf = rf.predict(X_test)
 # Evaluate Random Forest performance
 rf_mae = mean_absolute_error(y_test, y_pred_rf)
-rf_rmse = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+rf_rmse = numpy.sqrt(mean_squared_error(y_test, y_pred_rf))
 print(f"Random Forest MAE: {rf_mae}, Random Forest RMSE: {rf_rmse}")
 
 # 3. Decision tree
@@ -67,11 +70,11 @@ dt.fit(X_train, y_train)
 y_pred_dt = dt.predict(X_test)
 # Evaluate Decision Tree performance
 dt_mae = mean_absolute_error(y_test, y_pred_dt)
-dt_rmse = np.sqrt(mean_squared_error(y_test, y_pred_dt))
+dt_rmse = numpy.sqrt(mean_squared_error(y_test, y_pred_dt))
 print(f"Decision Tree MAE: {dt_mae}, Decision Tree RMSE: {dt_rmse}")
 
 # Compare the models
-results = pd.DataFrame({
+results = pandas.DataFrame({
     "Model": ["MLP", "Random Forest", "Decision Tree"],
     "MAE": [mlp_mae, rf_mae, dt_mae],
     "RMSE": [mlp_rmse, rf_rmse, dt_rmse]

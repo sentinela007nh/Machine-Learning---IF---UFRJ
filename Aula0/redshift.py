@@ -16,8 +16,21 @@ from sklearn.metrics import accuracy_score, mean_absolute_error, mean_squared_er
 from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
 
+print(
+    "This program will run different machine learning models to predict redshift from photometric data."
+)
+time.sleep(2)
+
 # Load the first CSV file (assumes it contains the test data)
 data = pandas.read_csv("./des_match_vvds_clean.csv")
+print("Data loaded successfully.")
+
+# Check for missing values
+if data.isnull().values.any():
+    print(
+        "Data contains missing values. Make sure that you have 'des_match_vvds_clean.csv in this repository."
+    )
+    exit()
 
 # The 'z' columns is the target and the 'mag_*' and 'mag_err_' columns are the predictor
 y = data["z"]
@@ -39,10 +52,9 @@ X = data[
 # Split the data into training and testing sets
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-print("The program will run three different regression models and compare their performance.")
-time.sleep(2)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # 1. Multi-Layer Perceptron
 
@@ -74,9 +86,26 @@ dt_rmse = numpy.sqrt(mean_squared_error(y_test, y_pred_dt))
 print(f"Decision Tree MAE: {dt_mae}, Decision Tree RMSE: {dt_rmse}")
 
 # Compare the models
-results = pandas.DataFrame({
-    "Model": ["MLP", "Random Forest", "Decision Tree"],
-    "MAE": [mlp_mae, rf_mae, dt_mae],
-    "RMSE": [mlp_rmse, rf_rmse, dt_rmse]
-})
+results = pandas.DataFrame(
+    {
+        "Model": ["MLP", "Random Forest", "Decision Tree"],
+        "MAE": [mlp_mae, rf_mae, dt_mae],
+        "RMSE": [mlp_rmse, rf_rmse, dt_rmse],
+    }
+)
 print(results)
+
+# Compare the plots of the models in same graph
+
+matplotlib.pyplot.figure(figsize=(10, 6))
+matplotlib.pyplot.scatter(y_test, y_test, color="black", label="Ideal", alpha=0.5)
+matplotlib.pyplot.plot(y_test, y_pred_mlp, color="blue", label="MLP", alpha=0.5)
+matplotlib.pyplot.plot(
+    y_test, y_pred_rf, color="green", label="Random Forest", alpha=0.5
+)
+matplotlib.pyplot.plot(y_test, y_pred_dt, color="red", label="Decision Tree", alpha=0.5)
+matplotlib.pyplot.xlabel("True Redshift")
+matplotlib.pyplot.ylabel("Predicted Redshift")
+matplotlib.pyplot.grid()
+matplotlib.pyplot.title("Redshift Prediction Comparison")
+matplotlib.pyplot.show()

@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 
 # 1.a) Inspecione os dados fornecidos e confirme que o método da regressão linear é uma boa opção para este conjunto
 
-np.random.seed(42)  # to make this code example reproducible
-m = 300  # number of instances
-x_train = 2 * np.random.rand(m, 1)  # column vector
-y_train = 4 + 3 * x_train + np.random.randn(m, 1)  # column vector
+np.random.seed(42)
+m = 300
+x_train = 2 * np.random.rand(m, 1)
+y_train = 4 + 3 * x_train + np.random.randn(m, 1)
 
 # Visualize the data
 plt.scatter(x_train, y_train, color="blue", label="Data points")
@@ -24,21 +24,6 @@ plt.show()
 
 # 1.b) Linear regression algorithm implementation
 def linear_regression(X, w, b):
-    """
-    Calculate the predictions using the linear regression model.
-
-    Parameters:
-    X : np.ndarray
-        Input features (m x n matrix).
-    w : float
-        Weights.
-    b : float
-        Bias term.
-
-    Returns:
-    np.array
-        Predictions (m x 1 vector).
-    """
     y = X.dot(w) + b
     return y
 
@@ -57,27 +42,10 @@ plt.title("Linear Regression Predictions")
 plt.show()
 
 
-# 2.a) Implement the least squares method to find the optimal parameters w and b
+# Implement the least squares method to find the optimal parameters w and b
 
 
 def compute_cost(X, y, w, b):
-    """
-    Compute the cost function for linear regression.
-
-    Parameters:
-    X : array
-        Input features (vector).
-    y : array
-        True values (vector).
-    w : float
-        Weights.
-    b : float
-        Bias term.
-
-    Returns:
-    float
-        Cost value.
-    """
     m = len(y)
     y_pred = linear_regression(X, w, b)
     cost = (1 / (2 * m)) * np.sum((y_pred - y) ** 2)
@@ -85,23 +53,6 @@ def compute_cost(X, y, w, b):
 
 
 def compute_gradient(X, Y, w, b):
-    """
-    Compute the gradient of the cost function.
-
-    Parameters:
-    X : array
-        Input features (vector).
-    y : array
-        True values (vector).
-    w : float
-        Weights.
-    b : float
-        Bias term.
-
-    Returns:
-    tuple
-        Gradient with respect to w and b.
-    """
     m = len(Y)
     y_pred = linear_regression(X, w, b)
     error = y_pred - Y
@@ -111,28 +62,6 @@ def compute_gradient(X, Y, w, b):
 
 
 def gradient_descent(X, Y, w_init, b_init, learning_rate, num_iterations):
-    """
-    Perform gradient descent to find the optimal parameters w and b.
-
-    Parameters:
-    X : array
-        Input features (vector).
-    Y : array
-        True values (vector).
-    w_init : float
-        Initial weight.
-    b_init : float
-        Initial bias term.
-    learning_rate : float
-        Learning rate for gradient descent.
-    num_iterations : int
-        Number of iterations for gradient descent.
-    Returns:
-        w : float
-            Optimal weight.
-        b : float
-            Optimal bias term.
-    """
     w = w_init
     b = b_init
     for i in range(num_iterations):
@@ -144,13 +73,17 @@ def gradient_descent(X, Y, w_init, b_init, learning_rate, num_iterations):
             print(f"Iteration {i}: Cost = {cost}, w = {w}, b = {b}")
     return w, b
 
+
 # Run the analysis
 w_init = 0.0
 b_init = 0.0
 learning_rate = 0.1
 num_iterations = 1000
-optimal_w, optimal_b = gradient_descent(x_train, y_train, w_init, b_init, learning_rate, num_iterations)
+optimal_w, optimal_b = gradient_descent(
+    x_train, y_train, w_init, b_init, learning_rate, num_iterations
+)
 print(f"Optimal parameters: w = {optimal_w}, b = {optimal_b}")
+
 # Visualize the final predictions
 y_final_pred = linear_regression(x_train, optimal_w, optimal_b)
 plt.scatter(x_train, y_train, color="blue", label="Data points")
@@ -160,4 +93,62 @@ plt.ylabel("y")
 plt.title("Linear Regression Fit after Gradient Descent")
 plt.show()
 
-# 3) 
+
+#  Define a const function
+def compute_cost(X, y, w, b):
+    """
+    compute cost
+    Args:
+      X (ndarray (m,n)): Data, m examples with n features
+      y (ndarray (m,)) : target values
+      w (ndarray (n,)) : model parameters
+      b (scalar)       : model parameter
+
+    Returns:
+      cost (scalar): cost
+    """
+
+    return cost
+
+
+# Define a function to compute the gradient
+def compute_gradient(X, y, w, b):
+    """
+    Computes the gradient for linear regression
+    Args:
+      X (ndarray (m,n)): Data, m examples with n features
+      y (ndarray (m,)) : target values
+      w (ndarray (n,)) : model parameters
+      b (scalar)       : model parameter
+
+    Returns:
+      dj_dw (ndarray (n,)): The gradient of the cost w.r.t. the parameters w.
+      dj_db (scalar):       The gradient of the cost w.r.t. the parameter b.
+    """
+    # INSIRA SEU CÓDIGO AQUI
+    # ...
+    return dj_dw, dj_db
+
+
+# Define a function of gradient descent
+def gradient_descent(X, y, w_in, b_in, alpha, num_iters):
+    """
+    Performs batch gradient descent to learn w and b. Updates w and b by taking
+    num_iters gradient steps with learning rate alpha
+
+    Args:
+      X (ndarray (m,n))   : Data, m examples with n features
+      y (ndarray (m,))    : target values
+      w_in (ndarray (n,)) : initial model parameters
+      b_in (scalar)       : initial model parameter
+      alpha (float)       : Learning rate
+      num_iters (int)     : number of iterations to run gradient descent
+
+    Returns:
+      w (ndarray (n,)) : Updated values of parameters
+      b (scalar)       : Updated value of parameter
+    """
+    # INSIRA SEU CÓDIGO AQUI
+    # ...
+
+    return w, b, J_history

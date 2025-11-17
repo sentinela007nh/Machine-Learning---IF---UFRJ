@@ -99,13 +99,18 @@ print(results)
 
 matplotlib.pyplot.figure(figsize=(10, 6))
 matplotlib.pyplot.scatter(y_test, y_test, color="black", label="Ideal", alpha=0.5)
-matplotlib.pyplot.plot(y_test, y_pred_mlp, color="blue", label="MLP", alpha=0.5)
-matplotlib.pyplot.plot(
+matplotlib.pyplot.scatter(y_test, y_pred_mlp, color="blue", label="MLP", alpha=0.5)
+matplotlib.pyplot.scatter(
     y_test, y_pred_rf, color="green", label="Random Forest", alpha=0.5
 )
-matplotlib.pyplot.plot(y_test, y_pred_dt, color="red", label="Decision Tree", alpha=0.5)
+matplotlib.pyplot.scatter(
+    y_test, y_pred_dt, color="red", label="Decision Tree", alpha=0.5
+)
 matplotlib.pyplot.xlabel("True Redshift")
 matplotlib.pyplot.ylabel("Predicted Redshift")
+matplotlib.pyplot.legend(
+    "Blue: MLP, Green: Random Forest, Red: Decision Tree, Black: Ideal"
+)
 matplotlib.pyplot.grid()
 matplotlib.pyplot.title("Redshift Prediction Comparison")
 matplotlib.pyplot.show()

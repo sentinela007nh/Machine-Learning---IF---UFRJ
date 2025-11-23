@@ -93,20 +93,21 @@ plt.ylabel("y")
 plt.title("Linear Regression Fit after Gradient Descent")
 plt.show()
 
-
+# 3. Gradient Descent Implementation for Linear Regression
 #  Define a const function
 def compute_cost(X, y, w, b):
     """
-    compute cost
     Args:
       X (ndarray (m,n)): Data, m examples with n features
       y (ndarray (m,)) : target values
       w (ndarray (n,)) : model parameters
-      b (scalar)       : model parameter
-
+      b (scalar)       : model parameter    
     Returns:
-      cost (scalar): cost
-    """
+        cost (scalar): The value of the cost function
+        """
+    m = X.shape[0]
+    y_pred = X.dot(w) + b_init
+    cost = (1 / (2 * m)) * np.sum((y_pred - y) ** 2)
 
     return cost
 
@@ -125,13 +126,19 @@ def compute_gradient(X, y, w, b):
       dj_dw (ndarray (n,)): The gradient of the cost w.r.t. the parameters w.
       dj_db (scalar):       The gradient of the cost w.r.t. the parameter b.
     """
-    # INSIRA SEU CÓDIGO AQUI
-    # ...
+    m, n = X.shape
+    dj_dw = np.zeros(n)
+    dj_db = 0.0
+    y_pred = X.dot(w) + b_init
+    error = y_pred - y_pred
+    dj_dw = (1 / m) * (X.T.dot(error))
+    dj_db = (1 / m) * np.sum(error)
+
     return dj_dw, dj_db
 
 
 # Define a function of gradient descent
-def gradient_descent(X, y, w_in, b_in, alpha, num_iters):
+def gradient_descent(X, y, w_init, b_init, alpha, num_iters):
     """
     Performs batch gradient descent to learn w and b. Updates w and b by taking
     num_iters gradient steps with learning rate alpha
@@ -148,7 +155,45 @@ def gradient_descent(X, y, w_in, b_in, alpha, num_iters):
       w (ndarray (n,)) : Updated values of parameters
       b (scalar)       : Updated value of parameter
     """
-    # INSIRA SEU CÓDIGO AQUI
-    # ...
+    J_history = []
+    w = w_init
+    b = b_init
+    for i in range(num_iters):
+        dj_dw, dj_db = compute_gradient(X, y, w, b)
+        w = w - alpha * dj_dw
+        b = b - alpha * dj_db
+        if i < 100000:  # prevent resource exhaustion
+            cost = compute_cost(X, y, w, b)
+            J_history.append(cost)
+        if i % 100 == 0:
+            print(f"Iteration {i}: Cost = {cost}, w = {w}, b = {b}")
+
 
     return w, b, J_history
+
+# Run gradient descent
+w_init = np.zeros(x_train.shape[1])
+b_init = 0.0
+alpha = 0.1
+num_iters = 10000
+w_final, b_final, J_hist = gradient_descent(
+    x_train, y_train, w_init, b_init, alpha, num_iters
+)
+print(f"Final parameters from gradient descent: w = {w_final}, b = {b_final}")
+# Visualize the final predictions from gradient descent
+y_gd_pred = linear_regression(x_train, w_final, b_final)
+plt.scatter(x_train, y_train, color="blue", label="Data points")
+plt.plot(x_train, y_gd_pred, color="green", label="GD Fitted line")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Linear Regression Fit after Gradient Descent Implementation")
+plt.show()
+
+# Plot the cost function history
+plt.plot(J_hist)
+plt.xlabel("Iteration")
+plt.ylabel("Cost")
+plt.title("Cost Function History during Gradient Descent")
+plt.show()
+
+

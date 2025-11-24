@@ -96,20 +96,17 @@ plt.show()
 # 3. Gradient Descent Implementation for Linear Regression
 #  Define a const function
 def compute_cost(X, y, w, b):
-    m = X.shape[0]
-    y_pred = X.dot(w) + b_init
-    cost = (1 / (2 * m)) * np.sum((y_pred - y) ** 2)
+    error = X.dot(w) + b - y
+    cost = (1 / (2 * X.shape[0])) * np.sum(error ** 2)
 
     return cost
 
 
 # Define a function to compute the gradient
 def compute_gradient(X, y, w, b):
-    m, n = X.shape
-    dj_dw = np.zeros(n)
-    dj_db = 0.0
-    y_pred = X.dot(w) + b_init
-    error = y_pred - y_pred
+    m = X.shape[0]
+    y_pred = X.dot(w) + b
+    error = y_pred - y
     dj_dw = (1 / m) * (X.T.dot(error))
     dj_db = (1 / m) * np.sum(error)
 

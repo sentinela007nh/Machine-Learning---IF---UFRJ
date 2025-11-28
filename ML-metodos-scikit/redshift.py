@@ -1,6 +1,5 @@
 # Photo Analizer of Redshift #
 
-
 import time
 import os
 import glob
